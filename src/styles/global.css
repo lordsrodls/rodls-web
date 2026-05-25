@@ -1,0 +1,119 @@
+/* ───────────────────────────────────────────────────────
+   Palette : verts botaniques sourds — herbier, papier ancien
+   Aucun vert flashy, tout est désaturé et terreux
+   ─────────────────────────────────────────────────────── */
+:root {
+  /* Fonds */
+  --paper: #f4f1e8;          /* papier crème naturel */
+  --paper-shade: #ebe6d6;    /* ombre du papier */
+  --paper-deep: #e0d9c4;     /* relief plus marqué */
+
+  /* Verts (du clair au foncé) */
+  --moss-50:  #d8dfc8;
+  --moss-100: #b8c4a2;
+  --moss-200: #94a47b;
+  --moss-300: #6b7d56;       /* vert principal — mousse */
+  --moss-400: #4f6140;       /* vert profond — feuillage */
+  --moss-500: #364930;       /* vert nuit forestière */
+  --moss-600: #1f2a1b;       /* presque noir */
+
+  /* Accents */
+  --ink: #2a2e26;            /* encre brun-noir */
+  --ink-soft: #555851;
+  --ink-mute: #8a8b80;
+
+  /* Système */
+  --bg: var(--paper);
+  --text: var(--ink);
+  --accent: var(--moss-400);
+  --rule: rgba(42, 46, 38, 0.18);
+
+  /* Typographie */
+  --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --font-body: 'Inter Tight', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+
+  /* Mesures */
+  --max-w: 1100px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* Texture papier subtile : grain SVG très léger */
+  background-image:
+    radial-gradient(ellipse at top left, rgba(107, 125, 86, 0.06), transparent 60%),
+    radial-gradient(ellipse at bottom right, rgba(54, 73, 48, 0.05), transparent 55%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.17 0 0 0 0 0.13 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Sélection */
+::selection {
+  background: var(--moss-300);
+  color: var(--paper);
+}
+
+/* Liens */
+a {
+  color: var(--moss-400);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--moss-500);
+}
+
+/* Mise en page */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Animation d'entrée — discrète */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+
+.signout {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--rule);
+    color: var(--moss-300);
+    transition: color 0.2s ease;
+    cursor: pointer;
+  }
+  .signout:hover {
+    color: var(--moss-500);
+  }

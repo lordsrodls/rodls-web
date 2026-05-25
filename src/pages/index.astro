@@ -1,0 +1,406 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Liste de tes projets/sites — à éditer librement
+const projects = [
+  {
+    title: 'Atelier',
+    subtitle: 'Projets en cours',
+    items: [
+      { name: 'Restaurant Démo', url: 'https://restaurant.rodls.me', status: 'live' },
+      { name: 'Cabinet Démo',   url: 'https://cabinet.rodls.me',    status: 'live' },
+    ],
+  },
+  {
+    title: 'Écrits',
+    subtitle: 'Notes & publications',
+    items: [
+      { name: 'Blog',  url: 'https://blog.rodls.me',  status: 'live' },
+      { name: 'Notes', url: '#',                       status: 'soon' },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<Base title="rodls.me — atelier numérique">
+  <main>
+    <!-- Filet décoratif en haut -->
+    <div class="hairline-top"></div>
+
+    <!-- En-tête -->
+    <header class="masthead container">
+      <div class="masthead-row">
+        <span class="logo-mark" aria-hidden="true">
+          <!-- Petite feuille SVG dessinée à la main -->
+          <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 28 C 8 18, 14 8, 28 4 C 26 14, 22 22, 12 26 C 10 26, 6 28, 4 28 Z"/>
+            <path d="M4 28 C 10 22, 18 14, 28 4"/>
+          </svg>
+        </span>
+        <span class="masthead-meta">N°01 — Édition courante</span>
+        <span class="masthead-meta">{year}</span>
+        <a href="/oauth2/sign_out?rd=https://rodls.me/oauth2/sign_in" class="masthead-meta signout">
+          se déconnecter
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero éditorial -->
+    <section class="hero container reveal">
+      <p class="kicker">— Atelier numérique</p>
+      <h1 class="hero-title">
+        <span class="ser">rodls</span><span class="dot">.</span><span class="ser">me</span>
+      </h1>
+      <p class="lede">
+        Un cahier de travail à ciel ouvert. Sites, infrastructures, expérimentations —
+        cultivés à la main, hébergés sur un seul VPS qui prend bien soin de tout ce
+        petit monde.
+      </p>
+    </section>
+
+    <!-- Ornement séparateur -->
+    <div class="ornament container" aria-hidden="true">
+      <span class="rule"></span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.2">
+        <circle cx="12" cy="12" r="2.5"/>
+        <path d="M12 2 L12 6 M12 18 L12 22 M2 12 L6 12 M18 12 L22 12"/>
+      </svg>
+      <span class="rule"></span>
+    </div>
+
+    <!-- Sections projets -->
+    <section class="sections container">
+      {projects.map((section, sIdx) => (
+        <article class="section reveal" style={`animation-delay: ${0.15 + sIdx * 0.1}s`}>
+          <header class="section-head">
+            <span class="section-num">{String(sIdx + 1).padStart(2, '0')}</span>
+            <div>
+              <h2 class="section-title">{section.title}</h2>
+              <p class="section-sub">{section.subtitle}</p>
+            </div>
+          </header>
+
+          <ul class="entries">
+            {section.items.map((item) => (
+              <li class="entry">
+                {item.status === 'live' ? (
+                  <a href={item.url} class="entry-link" target="_blank" rel="noopener">
+                    <span class="entry-name">{item.name}</span>
+                    <span class="entry-leader" aria-hidden="true"></span>
+                    <span class="entry-meta">
+                      <span class="dot-live" aria-label="en ligne"></span>
+                      visiter
+                    </span>
+                  </a>
+                ) : (
+                  <div class="entry-link is-soon">
+                    <span class="entry-name">{item.name}</span>
+                    <span class="entry-leader" aria-hidden="true"></span>
+                    <span class="entry-meta is-mute">à venir</span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </section>
+
+    <!-- Colophon -->
+    <footer class="colophon container reveal" style="animation-delay: 0.5s">
+      <div class="colophon-grid">
+        <div>
+          <p class="colophon-label">Colophon</p>
+          <p class="colophon-text">
+            Composé en <em>Cormorant Garamond</em> et <em>Inter Tight</em>.
+            Servi depuis un VPS auto-administré, derrière Traefik et Let's Encrypt.
+          </p>
+        </div>
+        <div>
+          <p class="colophon-label">Contact</p>
+          <p class="colophon-text">
+            <a href="mailto:contact@rodls.me">contact@rodls.me</a>
+          </p>
+        </div>
+      </div>
+      <p class="signature">— {year} · cultivé avec patience</p>
+    </footer>
+
+    <div class="hairline-bottom"></div>
+  </main>
+</Base>
+
+<style>
+  /* Filets décoratifs */
+  .hairline-top,
+  .hairline-bottom {
+    height: 1px;
+    background: var(--rule);
+    margin: 0 var(--gutter);
+  }
+  .hairline-top { margin-top: 1.5rem; }
+  .hairline-bottom { margin: 4rem var(--gutter) 1.5rem; }
+
+  /* En-tête (date / numéro) */
+  .masthead {
+    padding-top: 1.25rem;
+    padding-bottom: 4rem;
+  }
+  .masthead-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .logo-mark {
+    color: var(--moss-400);
+    margin-right: auto;
+    display: inline-flex;
+  }
+  .masthead-meta:nth-of-type(2) {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  /* Hero */
+  .hero {
+    padding-bottom: 5rem;
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss-300);
+    margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(4rem, 14vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--moss-500);
+    margin-bottom: 2.5rem;
+  }
+  .hero-title .dot {
+    color: var(--moss-200);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .hero-title .ser {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .lede {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 38rem;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Ornement central */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--moss-200);
+    padding: 1rem 0 4rem;
+  }
+  .ornament .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* Sections */
+  .sections {
+    display: grid;
+    gap: 4rem;
+    padding-bottom: 5rem;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--moss-300);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    color: var(--moss-500);
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    font-style: italic;
+    margin-top: 0.15rem;
+  }
+
+  /* Liste d'entrées */
+  .entries {
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+  .entry {
+    border-bottom: 1px dotted var(--rule);
+  }
+  .entry:last-child {
+    border-bottom: none;
+  }
+
+  .entry-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    color: var(--ink);
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+  .entry-link:hover:not(.is-soon) {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(107, 125, 86, 0.07) 50%,
+      transparent 100%
+    );
+    padding-left: 0.75rem;
+  }
+
+  .entry-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 500;
+    color: var(--moss-500);
+    letter-spacing: -0.005em;
+  }
+
+  .entry-leader {
+    border-bottom: 1px dotted var(--ink-mute);
+    transform: translateY(-0.35em);
+    min-width: 2rem;
+    opacity: 0.5;
+  }
+
+  .entry-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--moss-400);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+  .entry-meta.is-mute {
+    color: var(--ink-mute);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0.05em;
+  }
+
+  .dot-live {
+    width: 6px;
+    height: 6px;
+    background: var(--moss-300);
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(107, 125, 86, 0.6);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(107, 125, 86, 0.4); }
+    50%      { box-shadow: 0 0 0 5px rgba(107, 125, 86, 0); }
+  }
+
+  .is-soon {
+    opacity: 0.55;
+  }
+  .is-soon .entry-name {
+    color: var(--ink-soft);
+  }
+
+  /* Colophon */
+  .colophon {
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  .colophon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .colophon-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss-300);
+    margin-bottom: 0.75rem;
+  }
+  .colophon-text {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .colophon-text em {
+    font-style: normal;
+    color: var(--moss-500);
+  }
+  .signature {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .masthead-row {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .masthead-meta:nth-of-type(2) {
+      padding-left: 0;
+      border-left: none;
+    }
+    .entry-link {
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+    }
+    .entry-leader {
+      display: none;
+    }
+  }
+</style>
