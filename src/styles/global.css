@@ -27,6 +27,8 @@
   --text: var(--ink);
   --accent: var(--moss-400);
   --rule: rgba(42, 46, 38, 0.18);
+  --moss-glow-1: rgba(107, 125, 86, 0.06);
+  --moss-glow-2: rgba(54, 73, 48, 0.05);
 
   /* Typographie */
   --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
@@ -58,10 +60,10 @@ body {
   text-rendering: optimizeLegibility;
 
   /* Texture papier subtile : grain SVG très léger */
-  background-image:
-    radial-gradient(ellipse at top left, rgba(107, 125, 86, 0.06), transparent 60%),
-    radial-gradient(ellipse at bottom right, rgba(54, 73, 48, 0.05), transparent 55%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.17 0 0 0 0 0.13 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+background-image:
+    radial-gradient(ellipse at top left, var(--moss-glow-1), transparent 60%),
+    radial-gradient(ellipse at bottom right, var(--moss-glow-2), transparent 55%);
+  transition: background-color 0.3s ease, color 0.3s ease;
   background-attachment: fixed;
   min-height: 100vh;
 }
@@ -117,3 +119,33 @@ a:hover {
   .signout:hover {
     color: var(--moss-500);
   }
+
+/* ───────────────────────────────────────────────────────
+   Dark mode — nuit boutique : papier sombre, verts clairs
+   ─────────────────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  /* Fonds — papiers sombres */
+  --paper:       #1a1f17;   /* nuit forestière */
+  --paper-shade: #232a1f;
+  --paper-deep:  #2c3527;
+
+  /* Verts inversés — du foncé au clair */
+  --moss-50:  #364930;
+  --moss-100: #4f6140;
+  --moss-200: #6b7d56;
+  --moss-300: #94a47b;       /* vert principal en dark */
+  --moss-400: #b8c4a2;       /* vert clair feuillage */
+  --moss-500: #d8dfc8;       /* vert pâle — équivalent du moss-500 light */
+  --moss-600: #ebe6d6;       /* presque crème */
+  
+  --moss-glow-1: rgba(184, 196, 162, 0.05);
+  --moss-glow-2: rgba(148, 164, 123, 0.06);
+
+  /* Encres inversées */
+  --ink:      #e6e2d1;
+  --ink-soft: #b5b3a3;
+  --ink-mute: #7a7d70;
+
+  /* Système */
+  --rule: rgba(230, 226, 209, 0.16);
+}
