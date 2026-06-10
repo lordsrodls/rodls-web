@@ -1,0 +1,52 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.astro
+*.tsbuildinfo
+
+# Git
+.git
+.gitignore
+.github
+
+# IDE / Editor
+.vscode
+.idea
+.zed
+.cursor
+
+# Environment files (sécurité)
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Caches
+.cache
+.eslintcache
+
+# Tests
+coverage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker / Build config (pas besoin dans le contexte)
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Documentation
+README.md
+LICENSE
+
+# Husky (si jamais)
+.husky
